@@ -27,17 +27,15 @@ class FlipDismissAnimationController: NSObject, UIViewControllerAnimatedTransiti
         let containerView = transitionContext.containerView
         
         // 1
-        let initialFrame = transitionContext.initialFrame(for: fromVC)
         let finalFrame = destinationFrame
         
         // 2
         let snapshot = fromVC.view.snapshotView(afterScreenUpdates: false)
-        snapshot?.frame = initialFrame
+        
         snapshot?.layer.cornerRadius = 25
         snapshot?.layer.masksToBounds = true
         
         // 3
-        containerView.addSubview(toVC.view)
         containerView.addSubview(snapshot!)
         fromVC.view.isHidden = true
         
@@ -68,7 +66,7 @@ class FlipDismissAnimationController: NSObject, UIViewControllerAnimatedTransiti
         },
             completion: { _ in
                 // 2
-//                fromVC.view.isHidden = false
+                fromVC.view.isHidden = false
                 snapshot?.removeFromSuperview()
                 transitionContext.completeTransition(true)
                 print("Finish")
